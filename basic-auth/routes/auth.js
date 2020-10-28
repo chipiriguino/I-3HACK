@@ -1,19 +1,23 @@
 var express = require("express");
 var router = express.Router();
+const withAuth = require("../helpers/middleware");
 
-// User model
+const jwt = require("jsonwebtoken");
+
 const User = require("../models/user");
 
-// Bcrypt para encriptar passwords
-
 const bcrypt = require("bcryptjs");
+const { findOne } = require("../models/user");
+const bcryptSalt = 10;
+
+
+//SIGN UP
 
 router.get("/signup", function (req, res, next) {
   res.render("auth/signup");
 });
 
 router.post("/signup", async (req, res, next) => {
-  // validamos los datos que vienen del formulario
   if (req.body.email === "" || req.body.password === "") {
     res.render("auth/signup", {
       errorMessage: "Indicate a username and a password to sign up",
@@ -21,17 +25,13 @@ router.post("/signup", async (req, res, next) => {
     return;
   }
 
-  // desestructuramos el email y el password de req.body
   const { email, password } = req.body;
 
-  // creamos la salt y hacemos hash del password
   const salt = bcrypt.genSaltSync(10);
   const hashPass = bcrypt.hashSync(password, salt);
 
   try {
-    // buscar el usuario por el campo email
     const user = await User.findOne({ email: email });
-    // si existiera en la base de datos, renderizamos la vista de auth/signup con un mensaje de error
     if (user !== null) {
       res.render("auth/signup", {
         errorMessage: "The email already exists!",
@@ -49,15 +49,18 @@ router.post("/signup", async (req, res, next) => {
   }
 });
 
+
+//LOG IN + TOKEN VALIDATION (MIDDLEWARE ALSO INVOLVED)
+
+
 router.get("/login", (req, res, next) => {
   res.render("auth/login");
 });
 
 router.post("/login", async (req, res, next) => {
-  // validamos los datos que vienen del formulario
   if (req.body.email === "" || req.body.password === "") {
     res.render("auth/login", {
-      errorMessage: "Indicate a username and a password to login",
+      errorMessage: "Please enter both, username and password to sign up.",
     });
     return;
   }
@@ -65,28 +68,29 @@ router.post("/login", async (req, res, next) => {
   const { email, password } = req.body;
 
   try {
-    // validar si el usuario existe en la BD
-    const user = await User.findOne({ email: email });
-    console.log(user);
+    const user = await User.findOne({ email });
     if (!user) {
       res.render("auth/login", {
         errorMessage: "The email doesn't exist",
       });
       return;
-    }
-
-    if (bcrypt.compareSync(password, user.password)) {
-      // guardar el usuario en la session
-      req.session.currentUser = user;
-      res.redirect("/");
+    } else if (bcrypt.compareSync(password, user.password)) {
+      const userWithoutPass = await User.findOne({ email }).select("-password");
+      const payload = { userWithoutPass };
+      const token = jwt.sign(payload, process.env.SECRET_SESSION, {
+        expiresIn: "1h"
+      });
+      res.cookie("token", token, { httpOnly: true });
+      res.status(200).redirect("/");
     } else {
       res.render("auth/login", {
         errorMessage: "Incorrect password",
       });
     }
-
-    // validar si el password es correcto
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
 });
 
 router.get('/logout', (req, res, next) => {

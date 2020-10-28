@@ -3,10 +3,11 @@ var router = express.Router();
 
 const Event = require('../models/events.js');
 const User = require('../models/user.js');
+const withAuth = require("../helpers/middleware");
 
 /* GET home page. */
-router.get("/", function (req, res, next) {
-  res.render("home");
+router.get('/', withAuth, (req, res, next) => {
+  res.render('index', { title: 'I <3 HACK' });
 });
 
 router.use((req, res, next) => {
