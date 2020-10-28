@@ -6,19 +6,22 @@
   </head>
   <body>
 {{!-- esto es para que salga info según si estás logueado o no --}}
+{{#if isUserLoggedIn}}
+  <p> Hello, {{ currentUserInfo.name }}. </p>
+{{/if}}
 <nav>
   <ul>
   <!-- validamos que el usuario esté logueado para mostrar diferentes opciones en la navbar-->
-    {{#if currentUserInfo}}
+    {{#if isUserLoggedIn}}
      <li> <a href="/events"> See the coolest events in the city </a> </li>
       <li> <a href="/profile"> See your profile </a> </li>
       <li> <a href="/matches"> See your profile </a> </li>
       <li> <a href="/logout"> Log Out </a> </li>
-      <li> <a href="/faq"> Log In </a> </li>
+      <li> <a href="/faq"> FAQ </a> </li>
     {{else}}
       <li> <a href="/signup"> Sign Up </a> </li>
       <li> <a href="/login"> Log In </a> </li>
-      <li> <a href="/faq"> Log In </a> </li>
+      <li> <a href="/faq"> FAQ </a> </li>
     {{/if}}
   </ul>
 </nav>

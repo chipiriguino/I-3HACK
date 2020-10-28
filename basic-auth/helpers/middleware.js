@@ -23,7 +23,7 @@ const withAuth = async (req, res, next) => {
       // si el token valida, configuramos req.userID con el valor del decoded userID
       req.userID = decoded.userID;
       // ... y con él, hacemos una búsqueda del usuario por ID y lo metemos en la variable 'currentUserInfo'de nuestro objeto res.locals...
-      res.locals.currentUserInfo = req.user
+      res.locals.currentUserInfo = await User.findById(req.userID);
       //  ... y cambiamos el valor de 'isUserLoggedIn' a 'true' ya que ahora verificamos que el usuario está
       res.locals.isUserLoggedIn = true;
       next();
