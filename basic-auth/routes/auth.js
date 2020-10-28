@@ -25,10 +25,10 @@ router.post("/signup", async (req, res, next) => {
     return;
   }
 
-  const { email, password } = req.body;
+  const { password, fullname, birthdate, gender, email, photo } = req.body;
 
-  const salt = bcrypt.genSaltSync(10);
-  const hashPass = bcrypt.hashSync(password, salt);
+  const salt = await bcrypt.genSaltSync(10);
+  const hashPass = await bcrypt.hashSync(password, salt);
 
   try {
     const user = await User.findOne({ email: email });
@@ -40,8 +40,12 @@ router.post("/signup", async (req, res, next) => {
     }
 
     await User.create({
-      email,
       password: hashPass,
+      fullname,
+      birthdate,
+      gender,
+      email,
+      photo,
     });
     res.redirect("/");
   } catch (error) {
@@ -74,7 +78,7 @@ router.post("/login", async (req, res, next) => {
         errorMessage: "The email doesn't exist",
       });
       return;
-    } else if (bcrypt.compareSync(password, user.password)) {
+    } else if (bcrypt.compareSync (password, user.password)) {
       const userWithoutPass = await User.findOne({ email }).select("-password");
       const payload = { userWithoutPass };
       const token = jwt.sign(payload, process.env.SECRET_SESSION, {
