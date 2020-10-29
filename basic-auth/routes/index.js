@@ -38,6 +38,16 @@ router.get("/events", withAuth, function (req, res, next) {
   res.render("events");
 });
 
+//esto es nuevo
+router.get("/fav-events", withAuth, function (req, res, next) {
+  res.render("user/fav-events");
+});
+
+//esto es nuevo
+router.get("/matches", withAuth, function (req, res, next) {
+  res.render("user/matches");
+});
+
 
 //ADDING NEW EVENT FUNCTIONS:
 router.get('/events/add-event', (req, res, next) => {
