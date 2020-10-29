@@ -4,6 +4,7 @@ var router = express.Router();
 const Event = require('../models/events.js');
 const User = require('../models/user.js');
 const withAuth = require("../helpers/middleware");
+const { use } = require("./auth.js");
 
 /* GET home page. */
 router.get('/', withAuth, (req, res, next) => {
@@ -68,6 +69,13 @@ router.post('/events/add-event', (req, res, next) => {
     });
 });
 
+// intento de traer user, prueba 1
+router.get('/usuario', withAuth, async (req, res, next)=>{
+  console.log("hola")
+  const user= await User.find();
+  res.status(200).render('myprofile', {user});
+  console.log(user,"holahola")
+});
 
 
 module.exports = router;
