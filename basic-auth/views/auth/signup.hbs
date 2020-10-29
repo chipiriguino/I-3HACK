@@ -1,15 +1,49 @@
 <form id="form" action="/signup" method="POST">
     <h2>Sign Up</h2>
-    <label for="email">Email</label>
+        <br />
+        <label for="email">E-mail</label>
+    <input type="email" name="email" placeholder="Your email" required/>
+    
+    
     <br />
-
-    <input type="email" name="email" placeholder="Your email" />
-
     <label for="password">Password</label>
+    <input type="password" name="password" placeholder="********" required/>
+    
+    
     <br />
+    <label for="password">Repeat password</label>
+    <input type="password" placeholder="********" disabled />
+    
+    
+    <br />
+    <label for="fullname">Full name</label>
+    <input type="text" name="fullname" placeholder="Write your name here" required/>
+    
+    <br />
+    <label for="description">Description</label>
+    <input type="text" name="description" required/>
 
-    <input type="password" name="password" placeholder="********" />
-
+    <br />
+    <label for="birthdate">Birthdate</label>
+    <input type="date" name="birthdate" required/>
+    
+    
+    <br />
+    <label for="radio">Gender</label>
+    <input type="radio" id="male" name="gender" value="male">
+    <label for="male">Male</label><br>
+    <input type="radio" id="female" name="gender" value="female">
+    <label for="female">Female</label><br>
+    <input type="radio" id="other" name="gender" value="other">
+    <label for="other">Other</label>
+    
+    <br />
+    <label for="photo">Attach a nice picture ;)</label>
+    <input type="file" name="photo"  required/>
+    
+    
+    <h2>QUESTIONS WILL BE HERE SOON</h2>
+    
     <button type="submit">Create account</button>
 </form>
 

@@ -4,10 +4,12 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    fullname: String,
-    birthdate: Date,
-    genre:String,
-    mail:String,
+    fullname:String,
+    password:String,
+    birthdate:Date,
+    gender:String,
+    email:String,
+    description:String,
     photo:String,
     questions:[String],
   },
@@ -16,6 +18,6 @@ const userSchema = new Schema(
   }
 );
 
-const User = mongoose.model('User', userSchema)
+const User = mongoose.model('User', userSchema);
 
 module.exports = User;
