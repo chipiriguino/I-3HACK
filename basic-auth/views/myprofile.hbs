@@ -1,11 +1,9 @@
 <p>profileOKey</p>
 
 
-{{#each user}}
-<p>{{this.fullname}}</p>
-{{/each}}
-
-
+{{#if isUserLoggedIn}}
+  <p>{{ currentUserInfo.fullname }}. </p>
+{{/if}}
 <a href="/fav-events"><button>FAV events</button></a>
 
 <a href="/matches"><button>Matches</button></a>

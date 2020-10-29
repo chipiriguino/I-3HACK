@@ -71,11 +71,18 @@ router.post('/events/add-event', (req, res, next) => {
 
 // intento de traer user, prueba 1
 router.get('/usuario', withAuth, async (req, res, next)=>{
-  console.log("hola")
-  const user= await User.find();
-  res.status(200).render('myprofile', {user});
-  console.log(user,"holahola")
-});
+  const userId= req.user._id;
+  console.log(userId)
+  // console.log(req)
+  try {
+  const user= await User.findById(userId);
+  // res.locals.currentUserInfo=user;
+  res.render('myprofile', {user});
+  } catch (error) {
+    next(error)
+    return;
+  }
+})
 
 
 module.exports = router;
