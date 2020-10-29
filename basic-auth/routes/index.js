@@ -10,17 +10,32 @@ router.get('/', withAuth, (req, res, next) => {
   res.render('index', { title: 'I <3 HACK' });
 });
 
-router.use((req, res, next) => {
-  // if hay un usuario en sesión (si está logged in)
-  if (req.session.currentUser) {
-    next();
-  } else {
-    res.redirect("/login");
-  }
-});
+// router.use((req, res, next) => {
+//   // if hay un usuario en sesión (si está logged in)
+//   if (req.session.currentUser) {
+//     next();
+//   } else {
+//     res.redirect("/login");
+//   }
+// });
 
 router.get("/secret", function (req, res, next) {
   res.render("secret");
+});
+
+//esto es nuevo
+router.get("/faq", withAuth, function (req, res, next) {
+  res.render("faq");
+});
+
+//esto es nuevo
+router.get("/myprofile", withAuth, function (req, res, next) {
+  res.render("myprofile");
+});
+
+//esto es nuevo
+router.get("/events", withAuth, function (req, res, next) {
+  res.render("events");
 });
 
 
