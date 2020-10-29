@@ -19,7 +19,21 @@ Your heart is a code, let them hack you.
 
 
 ## User model
-
+User model
+{
+fullname: String,
+    birthdate: Date,
+    genre:String,
+    mail:String,
+    photo:String
+}
+Event model
+{
+   name: String,
+    date: Date,
+    ubication:String,
+    photo:String,
+}
 
 
 ## Routes
