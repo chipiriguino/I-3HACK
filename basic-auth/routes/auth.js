@@ -25,7 +25,51 @@ router.post("/signup", async (req, res, next) => {
     return;
   }
 
-  const { fullname, password, birthdate, gender, email, description, photo } = req.body;
+  const { fullname, password, repeatPassword, birthdate, gender, email, description, photo } = req.body;
+
+  if (password.length < 8){
+    res.render("auth/signup", {
+      errorMessage: "Your password should have at least 8 characters",
+    });
+    return;
+  }
+
+  if (password !== repeatPassword){
+    res.render("auth/signup", {
+      errorMessage: "Your passwords are not matching",
+    });
+    return;
+  }
+
+  if (fullname.length === ""){
+    res.render("auth/signup", {
+      errorMessage: "Your match will need to know how to call you ;)",
+    });
+    return;
+  }
+
+  if (description.length < 10){
+    res.render("auth/signup", {
+      errorMessage: "Tell your match a bit more about yourself!",
+    });
+    return;
+  }
+
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+  var yyyy = today.getFullYear() - 18;
+
+  today = mm + dd + yyyy;
+  if (birthdate > today){
+    res.render("auth/signup", {
+      errorMessage: "You have to be 18 or older to find love here :)",
+    });
+    return;
+  }
+  ;
+
+
 
   const salt = await bcrypt.genSaltSync(10);
   const hashPass = await bcrypt.hashSync(password, salt);
@@ -53,6 +97,14 @@ router.post("/signup", async (req, res, next) => {
     next(error);
   }
 });
+
+/*attribute=name tag; validator=predefined names from the library; 
+validator options=one of the given values that given Validator name accepts;*/
+// var constraints = {
+//   <attribute>: {
+//     <validator name>: <validator options>
+//   }
+// }
 
 
 //LOG IN + TOKEN VALIDATION (MIDDLEWARE ALSO INVOLVED)
