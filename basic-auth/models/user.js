@@ -5,9 +5,11 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema(
   {
     fullname:String,
+    password:String,
     birthdate:Date,
     gender:String,
     email:String,
+    description:String,
     photo:String,
     questions:[String],
   },

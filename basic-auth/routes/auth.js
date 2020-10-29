@@ -25,7 +25,7 @@ router.post("/signup", async (req, res, next) => {
     return;
   }
 
-  const { password, fullname, birthdate, gender, email, photo } = req.body;
+  const { fullname, password, birthdate, gender, email, description, photo } = req.body;
 
   const salt = await bcrypt.genSaltSync(10);
   const hashPass = await bcrypt.hashSync(password, salt);
@@ -40,11 +40,12 @@ router.post("/signup", async (req, res, next) => {
     }
 
     await User.create({
-      password: hashPass,
       fullname,
+      password: hashPass,
       birthdate,
       gender,
       email,
+      description,
       photo,
     });
     res.redirect("/");
