@@ -2,7 +2,9 @@
 
 
 {{#if isUserLoggedIn}}
-  <p>{{ currentUserInfo.fullname }}. </p>
+  <p><img src="{{currentUserInfo.photo}}"></p>
+  <p>{{ currentUserInfo.fullname}}. </p>
+  <p>{{ currentUserInfo.description}}. </p>
 {{/if}}
 <a href="/fav-events"><button>FAV events</button></a>
 
