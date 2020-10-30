@@ -117,7 +117,18 @@ background-image:url("") ;
 background-size: cover; 
 }
 
+
+/* NAVBAR */
 .navbar{
   font-size: 47px;
   font-family: 'VT323', monospace;
+}
+
+
+
+
+/* FORMULARIO DE SIGN UP */
+.genero{
+  display: flex;
+  flex-direction: row;
 }
