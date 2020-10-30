@@ -12,8 +12,8 @@ const withAuth = async (req, res, next) => {
         next();
     } else {
       const decoded = await jwt.verify(token, secret)
-      req.userID = decoded.userID;
-      res.locals.currentUserInfo = await User.findById(req.userID);
+      req.user = decoded.userWithoutPass;
+      res.locals.currentUserInfo = req.user;
       res.locals.isUserLoggedIn = true;
       next();
     }
