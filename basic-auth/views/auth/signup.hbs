@@ -11,13 +11,13 @@
     
     
     <br />
-    <label for="password">Repeat password</label>
-    <input type="password" placeholder="********" disabled />
+    <label for="repeatPassword">Repeat password</label>
+    <input type="password" name="repeatPassword" placeholder="********"  required/>
     
     
     <br />
     <label for="fullname">Full name</label>
-    <input type="text" name="fullname" placeholder="Write your name here" required/>
+    <input type="text" name="fullname" placeholder="Write your name here" />
     
     <br />
     <label for="description">Description</label>
@@ -29,7 +29,7 @@
     
     
     <br />
-    <label for="radio">Gender</label>
+    <label for="radio" required>Gender</label>
     <input type="radio" id="male" name="gender" value="male">
     <label for="male">Male</label><br>
     <input type="radio" id="female" name="gender" value="female">
@@ -44,9 +44,11 @@
     
     <h2>QUESTIONS WILL BE HERE SOON</h2>
     
-    <button type="submit">Create account</button>
+    <button type="submit"name="signup-button">Create account</button>
 </form>
 
 {{#if errorMessage}}
-<div class="error-message">{{ errorMessage }}</div>
+<div class="error-message" id="message-container">{{ errorMessage }}</div>
 {{/if}}
+
+<script src="basic-auth/public/signup"></script>
