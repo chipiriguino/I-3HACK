@@ -17,8 +17,32 @@ Your heart is a code, let them hack you.
 - **All events list** - As a user I want to see all the events available so that I can choose which ones I want to attend
 - **Favorite events** - As a user I want to be able to attend to event so that the organizers can count me in
 
+## Models    
 
-## User model
+User model
+
+```
+{
+fullname: String,
+birthdate: Date,
+genre: String,
+mail: String,
+photo: String,
+questions:[String]
+}
+```
+
+Event model
+
+```
+{
+name: String,
+date: Date,
+ubication: String,
+description: String,
+photo: String,
+}
+```
 
 
 
