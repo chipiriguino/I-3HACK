@@ -50,7 +50,7 @@ router.post("/signup", async (req, res, next) => {
 
   if (description.length < 10){
     res.render("auth/signup", {
-      errorMessage: "Tell your match a bit more about yourself!",
+      errorMessage: "Tell your future match a bit more about yourself!",
     });
     return;
   }
