@@ -61,7 +61,7 @@ router.post("/signup", async (req, res, next) => {
   var yyyy = today.getFullYear() - 18;
 
   today = mm + dd + yyyy;
-  if (birthdate > today){
+  if (birthdate < today){
     res.render("auth/signup", {
       errorMessage: "You have to be 18 or older to find love here :)",
     });
@@ -155,5 +155,13 @@ router.get('/logout', (req, res, next) => {
     res.redirect('/login')
   })
 })
+
+
+
+// TEST
+
+router.get("/testsignup", function (req, res, next) {
+  res.render("auth/testsignup");
+});
 
 module.exports = router;

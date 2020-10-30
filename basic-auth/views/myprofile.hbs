@@ -1,6 +1,9 @@
-<p>profileOKey</p>
+<p>I&lt3HACK</p>
 
-
+{{!-- esto es para que salga info según si estás logueado o no --}}
+{{#if isUserLoggedIn}}
+  <p> Hello, {{ currentUserInfo.fullname }}. </p>
+{{/if}}
 {{#if isUserLoggedIn}}
   <p><img src="{{currentUserInfo.photo}}"></p>
   <p>{{ currentUserInfo.fullname}}. </p>
